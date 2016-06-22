@@ -1,0 +1,45 @@
+/* Class = "UITableViewSection"; headerTitle = "Monitor Setting"; ObjectID = "0OZ-gS-D5W"; */
+"0OZ-gS-D5W.headerTitle" = "監控設定";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "1ON-8J-T96"; */
+"1ON-8J-T96.placeholder" = "電郵";
+
+/* Class = "UILabel"; text = "Port"; ObjectID = "55I-Xg-5Sn"; */
+"55I-Xg-5Sn.text" = "端口";
+
+/* Class = "UILabel"; text = "Threshold"; ObjectID = "BIa-ek-BrO"; */
+"BIa-ek-BrO.text" = "閥值";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "Emv-Lp-Evh"; */
+"Emv-Lp-Evh.placeholder" = "密碼";
+
+/* Class = "UITextField"; placeholder = "time"; ObjectID = "FhT-PT-4hQ"; */
+"FhT-PT-4hQ.placeholder" = "次";
+
+/* Class = "UILabel"; text = "Timeout"; ObjectID = "Nh6-dk-Nc8"; */
+"Nh6-dk-Nc8.text" = "連線逾時";
+
+/* Class = "UILabel"; text = "Interval"; ObjectID = "P7f-ha-oJV"; */
+"P7f-ha-oJV.text" = "監控間隔";
+
+/* Class = "UILabel"; text = "Host"; ObjectID = "RtT-yr-sFk"; */
+"RtT-yr-sFk.text" = "主機";
+
+/* Class = "UITextField"; placeholder = "sec"; ObjectID = "ePe-JI-G89"; */
+"ePe-JI-G89.placeholder" = "秒";
+
+/* Class = "UIButton"; normalTitle = "Guest Log In"; ObjectID = "jk6-uM-Hju"; */
+"jk6-uM-Hju.normalTitle" = "遊客登入";
+
+/* Class = "UILabel"; text = "Path"; ObjectID = "sCd-JA-GBa"; */
+"sCd-JA-GBa.text" = "路徑";
+
+/* Class = "UITextField"; placeholder = "sec"; ObjectID = "sjR-sF-870"; */
+"sjR-sF-870.placeholder" = "秒";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "t6q-4J-cj1"; */
+"t6q-4J-cj1.normalTitle" = "登入";
+
+/* Class = "UITableViewSection"; headerTitle = "Base Setting"; ObjectID = "uFS-A2-igU"; */
+"uFS-A2-igU.headerTitle" = "基本設定";
+

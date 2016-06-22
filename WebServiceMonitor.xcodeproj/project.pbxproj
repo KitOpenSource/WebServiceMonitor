@@ -11,6 +11,8 @@
 		475C82B11D17B03B0018212C /* MonitorListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475C82B01D17B03B0018212C /* MonitorListController.swift */; };
 		475C82B31D17B14A0018212C /* MonitorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475C82B21D17B14A0018212C /* MonitorTableViewCell.swift */; };
 		475C82B51D17FD390018212C /* EditMonitorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475C82B41D17FD390018212C /* EditMonitorController.swift */; };
+		475C82B71D1954CC0018212C /* en.xliff in Resources */ = {isa = PBXBuildFile; fileRef = 475C82B61D1954CC0018212C /* en.xliff */; };
+		475C82BC1D1958B90018212C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 475C82BE1D1958B90018212C /* InfoPlist.strings */; };
 		4793A1AF1D0AA4AE00844093 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4793A1AE1D0AA4AE00844093 /* AppDelegate.swift */; };
 		4793A1B11D0AA4AE00844093 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4793A1B01D0AA4AE00844093 /* ViewController.swift */; };
 		4793A1B41D0AA4AE00844093 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4793A1B21D0AA4AE00844093 /* Main.storyboard */; };
@@ -27,6 +29,10 @@
 		475C82B01D17B03B0018212C /* MonitorListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorListController.swift; sourceTree = "<group>"; };
 		475C82B21D17B14A0018212C /* MonitorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorTableViewCell.swift; sourceTree = "<group>"; };
 		475C82B41D17FD390018212C /* EditMonitorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMonitorController.swift; sourceTree = "<group>"; };
+		475C82B61D1954CC0018212C /* en.xliff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = en.xliff; path = WebServiceMonitor/en.xliff; sourceTree = "<group>"; };
+		475C82B81D1958B80018212C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		475C82B91D1958B90018212C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		475C82BD1D1958B90018212C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4793A1AB1D0AA4AE00844093 /* WebServiceMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebServiceMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4793A1AE1D0AA4AE00844093 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4793A1B01D0AA4AE00844093 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +93,8 @@
 		4793A1AD1D0AA4AE00844093 /* WebServiceMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				475C82BE1D1958B90018212C /* InfoPlist.strings */,
+				475C82B61D1954CC0018212C /* en.xliff */,
 				4793A1AE1D0AA4AE00844093 /* AppDelegate.swift */,
 				4793A1B01D0AA4AE00844093 /* ViewController.swift */,
 				4793A1B21D0AA4AE00844093 /* Main.storyboard */,
@@ -137,6 +145,11 @@
 				TargetAttributes = {
 					4793A1AA1D0AA4AE00844093 = {
 						CreatedOnToolsVersion = 7.3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -165,7 +178,9 @@
 			files = (
 				4793A1BC1D0AA4AE00844093 /* LaunchScreen.storyboard in Resources */,
 				4793A1B91D0AA4AE00844093 /* Assets.xcassets in Resources */,
+				475C82B71D1954CC0018212C /* en.xliff in Resources */,
 				4793A1B41D0AA4AE00844093 /* Main.storyboard in Resources */,
+				475C82BC1D1958B90018212C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,10 +251,19 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		475C82BE1D1958B90018212C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				475C82BD1D1958B90018212C /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		4793A1B21D0AA4AE00844093 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4793A1B31D0AA4AE00844093 /* Base */,
+				475C82B81D1958B80018212C /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -248,6 +272,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4793A1BB1D0AA4AE00844093 /* Base */,
+				475C82B91D1958B90018212C /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

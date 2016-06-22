@@ -13,25 +13,43 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var monitorListCtrl: MonitorListController?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        
+        let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound],
+                                                  categories: nil)
+        application.registerUserNotificationSettings(settings)
+        
         return true
     }
 
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        if let monitorList:[[String:AnyObject]] = NSUserDefaults.standardUserDefaults().objectForKey("monitorList") as? Array {
+            for monitor in monitorList {
+                backgroundMonitoring(monitor)
+            }
+        }
+        completionHandler(.NewData)
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        monitorListCtrl?.saveMonitor()
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        monitorListCtrl?.stopMonitoring()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        monitorListCtrl?.startMonitoring()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -44,6 +62,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
 
+    func backgroundMonitoring(monitor:[String:AnyObject]) {
+        print(NSDate())
+        if let monitor:[String:AnyObject] = monitor {
+            if monitor["enable"] as! Bool == false {
+                return
+            }
+            let manager = AFHTTPSessionManager()
+            var url:String
+            if let host:String = monitor["host"] as? String {
+                if host == "" {
+                    return
+                }
+                url = host
+                
+                if let port:String = monitor["port"] as? String {
+                    url = host + ":" + port
+                }
+                
+                if let path:String = monitor["path"] as? String {
+                    url += path
+                }
+                if let timeout:Int = monitor["timeout"] as? Int {
+                    manager.requestSerializer.timeoutInterval = Double(timeout)
+                } else {
+                    manager.requestSerializer.timeoutInterval = 60
+                }
+                
+                url = "http://" + url
+                url = url.stringByReplacingOccurrencesOfString(" ", withString: "", options: .LiteralSearch, range: nil)
+                url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+                print(url)
+                manager.POST("http://mood.ibeacon-macau.com:80/api/checkAlive", parameters: nil, progress: nil, success: { (task:NSURLSessionDataTask, object:AnyObject?) in
+                    if UIApplication.sharedApplication().applicationState == .Background {
+                        let localNotification = UILocalNotification()
+                        localNotification.fireDate = NSDate(timeIntervalSinceNow: 0)
+                        localNotification.timeZone = NSTimeZone.defaultTimeZone()
+                        localNotification.alertBody = "Success: " + url
+                        localNotification.soundName = UILocalNotificationDefaultSoundName
+                        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                    }
+                    
+                    }, failure: { (task:NSURLSessionDataTask?, error:NSError) in
+                        if UIApplication.sharedApplication().applicationState == .Background {
+                            let localNotification = UILocalNotification()
+                            localNotification.fireDate = NSDate(timeIntervalSinceNow: 0)
+                            localNotification.timeZone = NSTimeZone.defaultTimeZone()
+                            localNotification.alertBody = "Warning: " + url
+                            localNotification.soundName = UILocalNotificationDefaultSoundName
+                            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                        }
+                })
+            }
+            
+        }
+    }
+    
     // MARK: - Core Data stack
 
     lazy var applicationDocumentsDirectory: NSURL = {

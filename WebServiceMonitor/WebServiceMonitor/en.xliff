@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="WebServiceMonitor/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="zh-Hant" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
+    </header>
+    <body/>
+  </file>
+  <file original="WebServiceMonitor/Base.lproj/Main.storyboard" source-language="en" target-language="zh-Hant" datatype="plaintext">
+      <header>
+          <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
+      </header>
+      <body>
+          <trans-unit id="0OZ-gS-D5W.headerTitle">
+              <source>Monitor Setting</source>
+              <target>監控設定</target>
+              <note>Class = "UITableViewSection"; headerTitle = "Monitor Setting"; ObjectID = "0OZ-gS-D5W";</note>
+          </trans-unit>
+          <trans-unit id="1ON-8J-T96.placeholder">
+              <source>Email</source>
+              <target>電郵</target>
+              <note>Class = "UITextField"; placeholder = "Email"; ObjectID = "1ON-8J-T96";</note>
+          </trans-unit>
+          <trans-unit id="55I-Xg-5Sn.text">
+              <source>Port</source>
+              <target>端口</target>
+              <note>Class = "UILabel"; text = "Port"; ObjectID = "55I-Xg-5Sn";</note>
+          </trans-unit>
+          <trans-unit id="BIa-ek-BrO.text">
+              <source>Threshold</source>
+              <target>閥值</target>
+              <note>Class = "UILabel"; text = "Threshold"; ObjectID = "BIa-ek-BrO";</note>
+          </trans-unit>
+          <trans-unit id="Emv-Lp-Evh.placeholder">
+              <source>Password</source>
+              <target>密碼</target>
+              <note>Class = "UITextField"; placeholder = "Password"; ObjectID = "Emv-Lp-Evh";</note>
+          </trans-unit>
+          <trans-unit id="FhT-PT-4hQ.placeholder">
+              <source>time</source>
+              <target>次</target>
+              <note>Class = "UITextField"; placeholder = "time"; ObjectID = "FhT-PT-4hQ";</note>
+          </trans-unit>
+          <trans-unit id="ISg-WG-loY.text">
+              <source>Label</source>
+              <note>Class = "UILabel"; text = "Label"; ObjectID = "ISg-WG-loY";</note>
+          </trans-unit>
+          <trans-unit id="Nh6-dk-Nc8.text">
+              <source>Timeout</source>
+              <target>連線逾時</target>
+              <note>Class = "UILabel"; text = "Timeout"; ObjectID = "Nh6-dk-Nc8";</note>
+          </trans-unit>
+          <trans-unit id="P7f-ha-oJV.text">
+              <source>Interval</source>
+              <target>監控間隔</target>
+              <note>Class = "UILabel"; text = "Interval"; ObjectID = "P7f-ha-oJV";</note>
+          </trans-unit>
+          <trans-unit id="RtT-yr-sFk.text">
+              <source>Host</source>
+              <target>主機</target>
+              <note>Class = "UILabel"; text = "Host"; ObjectID = "RtT-yr-sFk";</note>
+          </trans-unit>
+          <trans-unit id="Tkp-UI-wS0.placeholder">
+              <source>ex: 3000 (Default: 80)</source>
+              <note>Class = "UITextField"; placeholder = "ex: 3000 (Default: 80)"; ObjectID = "Tkp-UI-wS0";</note>
+          </trans-unit>
+          <trans-unit id="Vtd-ez-rhU.placeholder">
+              <source>ex: www.google.com</source>
+              <note>Class = "UITextField"; placeholder = "ex: www.google.com"; ObjectID = "Vtd-ez-rhU";</note>
+          </trans-unit>
+          <trans-unit id="ePe-JI-G89.placeholder">
+              <source>sec</source>
+              <target>秒</target>
+              <note>Class = "UITextField"; placeholder = "sec"; ObjectID = "ePe-JI-G89";</note>
+          </trans-unit>
+          <trans-unit id="jk6-uM-Hju.normalTitle">
+              <source>Guest Log In</source>
+              <target>遊客登入</target>
+              <note>Class = "UIButton"; normalTitle = "Guest Log In"; ObjectID = "jk6-uM-Hju";</note>
+          </trans-unit>
+          <trans-unit id="ofg-As-lgq.text">
+              <source>Label</source>
+              <note>Class = "UILabel"; text = "Label"; ObjectID = "ofg-As-lgq";</note>
+          </trans-unit>
+          <trans-unit id="sCd-JA-GBa.text">
+              <source>Path</source>
+              <target>路徑</target>
+              <note>Class = "UILabel"; text = "Path"; ObjectID = "sCd-JA-GBa";</note>
+          </trans-unit>
+          <trans-unit id="sjR-sF-870.placeholder">
+              <source>sec</source>
+              <target>秒</target>
+              <note>Class = "UITextField"; placeholder = "sec"; ObjectID = "sjR-sF-870";</note>
+          </trans-unit>
+          <trans-unit id="t6q-4J-cj1.normalTitle">
+              <source>Log In</source>
+              <target>登入</target>
+              <note>Class = "UIButton"; normalTitle = "Log In"; ObjectID = "t6q-4J-cj1";</note>
+          </trans-unit>
+          <trans-unit id="uFS-A2-igU.headerTitle">
+              <source>Base Setting</source>
+              <target>基本設定</target>
+              <note>Class = "UITableViewSection"; headerTitle = "Base Setting"; ObjectID = "uFS-A2-igU";</note>
+          </trans-unit>
+          <trans-unit id="wca-X0-jK2.placeholder">
+              <source>ex: /path/to/page.html</source>
+              <note>Class = "UITextField"; placeholder = "ex: /path/to/page.html"; ObjectID = "wca-X0-jK2";</note>
+          </trans-unit>
+      </body>
+  </file>
+  <file original="WebServiceMonitor/Info.plist" source-language="en" target-language="zh-Hant" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

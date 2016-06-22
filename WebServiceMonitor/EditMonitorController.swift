@@ -99,7 +99,7 @@ class EditMonitorController: UITableViewController {
         if let timeout = timeoutTextField.text {
             monitor!["timeout"] = Int(timeout)
         }
-        
+        print(monitor)
         
         let monitorListCtrl = self.navigationController?.viewControllers.first as? MonitorListController
         monitorListCtrl?.updateMonitor(monitor, indexPath: indexPath)

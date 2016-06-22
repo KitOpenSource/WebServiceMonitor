@@ -14,10 +14,14 @@ class MonitorListController: UITableViewController {
     var timerList:[String:NSTimer] = [:]
     var statusList:[Bool] = []
     var thresholdList:[String:Int] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        monitorList = [["host":"mood.ibeacon-macau.com", "port":"80", "path":"/api/checkAlive", "interval":3, "threshold":2, "timeout":5, "enable":true]]
+        (UIApplication.sharedApplication().delegate as! AppDelegate).monitorListCtrl = self
+        
+        //monitorList = [["host":"mood.ibeacon-macau.com", "port":"80", "path":"/api/checkAlive", "interval":3, "threshold":2, "timeout":5, "enable":true]]
+        monitorList = NSUserDefaults.standardUserDefaults().objectForKey("monitorList") as? Array ?? []
         statusList = [Bool](count:monitorList.count, repeatedValue: false)
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
@@ -25,7 +29,26 @@ class MonitorListController: UITableViewController {
         tableView.estimatedRowHeight = 68
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(MonitorListController.addAction(_:)))
+        self.navigationItem.rightBarButtonItems = [addButton]
+        
         startMonitoring()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        saveMonitor()
+    }
+    
+    func saveMonitor() {
+        NSUserDefaults.standardUserDefaults().setObject(monitorList, forKey: "monitorList")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func addAction(sender:UIBarButtonItem) {
+        let monitor = ["host":"", "port":"", "path":"", "interval":3, "threshold":2, "timeout":5, "enable":false]
+        monitorList.append(monitor)
+        statusList.append(false)
+        tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: monitorList.count - 1, inSection: 0)], withRowAnimation: .Bottom)
     }
     
     func enableAction(sender:UISwitch) {
@@ -37,6 +60,7 @@ class MonitorListController: UITableViewController {
                 startSingleMonitoring(monitorList[indexPath.row])
                 tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             } else {
+                statusList[indexPath.row] = false
                 stopSingleMonitoring(monitorList[indexPath.row])
                 tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
@@ -48,6 +72,9 @@ class MonitorListController: UITableViewController {
     func updateThreshold(monitor:[String:AnyObject], success:Bool) {
         var url:String
         if let host:String = monitor["host"] as? String {
+            if host == "" {
+                return
+            }
             url = host
             
             if let port:String = monitor["port"] as? String {
@@ -87,7 +114,6 @@ class MonitorListController: UITableViewController {
                         thresholdList[url] = monitor["threshold"] as? Int
                         if let index = getMonitorIndex(monitor) {
                             statusList[index] = true
-                            
                             tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Fade)
                         }
                     }
@@ -96,6 +122,7 @@ class MonitorListController: UITableViewController {
                     if thresholdList[url] <= 0 {
                         thresholdList[url] = 0
                         if let index = getMonitorIndex(monitor) {
+                            
                             statusList[index] = false
                             tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Fade)
                         }
@@ -117,15 +144,23 @@ class MonitorListController: UITableViewController {
     }
     
     func monitoringTask(timer:NSTimer) {
-        print(timer.userInfo)
+        print(NSDate())
         if let monitor:[String:AnyObject] = timer.userInfo as? Dictionary {
-            
+            if monitor["enable"] as! Bool == false {
+                return
+            }
             let manager = AFHTTPSessionManager()
             var url:String
             if let host:String = monitor["host"] as? String {
+                if host == "" {
+                    return
+                }
                 url = host
                 
                 if let port:String = monitor["port"] as? String {
+                    if host == "" {
+                        url = host + ":80"
+                    }
                     url = host + ":" + port
                 }
                 
@@ -138,7 +173,10 @@ class MonitorListController: UITableViewController {
                     manager.requestSerializer.timeoutInterval = 60
                 }
                 
-                manager.POST("http://"+url, parameters: nil, progress: nil, success: { (task:NSURLSessionDataTask, object:AnyObject?) in
+                url = "http://" + url
+                url = url.stringByReplacingOccurrencesOfString(" ", withString: "", options: .LiteralSearch, range: nil)
+                url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+                manager.POST(String(url), parameters: nil, progress: nil, success: { (task:NSURLSessionDataTask, object:AnyObject?) in
                     self.updateThreshold(monitor, success: true)
                     self.updateSingleMonitoring(monitor)
                     }, failure: { (task:NSURLSessionDataTask?, error:NSError) in
@@ -150,23 +188,29 @@ class MonitorListController: UITableViewController {
         }
         
     }
+
     
     func updateMonitor(monitor:[String:AnyObject]!, indexPath:NSIndexPath!) {
         monitorList[indexPath.row] = monitor
-        
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         stopSingleMonitoring(monitor)
         startSingleMonitoring(monitor)
+        
     }
     
     func startMonitoring() {
         stopMonitoring()
-        
+        print("start monitoring")
         for monitor in monitorList {
-            startSingleMonitoring(monitor)
+            
+                startSingleMonitoring(monitor)
+            
+            
         }
     }
     
     func stopMonitoring() {
+        print("stop monitoring")
         if !timerList.isEmpty {
             for timer in timerList.values {
                 timer.invalidate()
@@ -176,8 +220,14 @@ class MonitorListController: UITableViewController {
     }
     
     func startSingleMonitoring(monitor:[String:AnyObject]) {
+        if monitor["enable"] as! Bool == false {
+            return
+        }
         var url:String
         if let host:String = monitor["host"] as? String {
+            if host == "" {
+                return
+            }
             url = host
             
             if let port:String = monitor["port"] as? String {
@@ -202,6 +252,9 @@ class MonitorListController: UITableViewController {
     func updateSingleMonitoring(monitor:[String:AnyObject]) {
         var url:String
         if let host:String = monitor["host"] as? String {
+            if host == "" {
+                return
+            }
             url = host
             
             if let port:String = monitor["port"] as? String {
@@ -247,7 +300,15 @@ class MonitorListController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return monitorList.count
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            monitorList.removeAtIndex(indexPath.row)
+            statusList.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
